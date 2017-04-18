@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,20 +27,18 @@ public class HelloController {
 	
 	@RequestMapping(value="/employees", method=RequestMethod.GET)
 	@ResponseBody
-	public List<String> employeeGet( @RequestParam("gender") String gender) {
+	public List<Employee> employeeGet( @RequestParam("gender") String gender) {
 		
-		List<String> tampung= new ArrayList<String>();
+		List<Employee> tampung= new ArrayList<Employee>();
 		
-		for (int i=0;i<data.size();i++)
+		for (Employee list:data)
 		{
-			if (data.get(i).getGender().equals(gender)==true)
+			if (list.getGender().equals(gender)==true)
 			{
-				tampung.add(data.get(i).getName());
+				tampung.add(list);
 			}
-			
 		}
 		
-		System.out.println(tampung);
 		return tampung;
 	}
 	
@@ -56,5 +55,9 @@ public class HelloController {
 		return newEmployee;
 	}
 	
-	
+	@RequestMapping ("/hellojsp")
+	public String hello(ModelMap modelMap){
+		modelMap.addAttribute("message","Hello Spring from JSP");
+		return "hello";
+	}
 }

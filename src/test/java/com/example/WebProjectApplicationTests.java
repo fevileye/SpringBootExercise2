@@ -40,12 +40,11 @@ public class WebProjectApplicationTests {
 	}
 	
 	@Test
-	public void getEmployee() throws Exception{
+	public void getEmployeeNew() throws Exception{
+		String expectedResult="[{\"name\":\"Budi\",\"gender\":\"Male\"}]";
 		
+		this.mockMvc.perform(get("/employees?gender=Male")).andExpect(status().isOk()).andExpect(content().json(expectedResult));
 		
-		String tampung=this.mockMvc.perform(get("/employees?gender=Male")).andReturn().getResponse().getContentAsString();
-		
-		assertEquals("[\"Budi\"]", tampung);
 	}
 	
 	@Test
